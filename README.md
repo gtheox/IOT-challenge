@@ -1,63 +1,116 @@
-﻿# Mottu Control - Documentação do Projeto
+﻿# 🛰️ Mottu IOT - Rastreador GPS/GPRS
+
+Projeto de Internet das Coisas (IoT) para a matéria de Arquiteturas Disruptivas, focado na criação de um dispositivo de rastreamento em tempo real para a frota de motocicletas da empresa Mottu.
+
+---
+
+## 📚 Sumário
+
+- [Integrantes](#-integrantes)
+- [📍 Problema](#-problema)
+- [📶 Justificativa para Uso de IoT](#-justificativa-para-uso-de-iot)
+- [🏛️ Arquitetura da Solução Completa](#️-arquitetura-da-solução-completa)
+- [🛠️ Tecnologias Utilizadas](#️-tecnologias-utilizadas)
+- [🔌 Circuito e Montagem](#-circuito-e-montagem)
+- [📊 Fluxograma de Funcionamento](#-fluxograma-de-funcionamento)
+- [🚀 Como Configurar e Usar](#-como-configurar-e-usar)
+- [✅ Resultados](#-resultados)
+- [📹 Vídeo de Apresentação](#-vídeo-de-apresentação)
+
+---
+
+## 👨‍💻 Integrantes
+
+| Nome                           | RM     | GitHub                                          |
+| ------------------------------ | ------ | ----------------------------------------------- |
+| Gabriel Teodoro Gonçalves Rosa | 555962 | [gtheox](https://github.com/gtheox)             |
+| Luka Shibuya                   | 558123 | [lukashibuya](https://github.com/lukashibuya)   |
+| Eduardo Giovannini             | 555030 | [DuGiovannini](https://github.com/DuGiovannini) |
+
+---
 
 ## 📍 Problema
 
-As filiais da empresa Mottu enfrentam desafios significativos na gestão e monitoramento das motos estacionadas em seus pátios. A ausência de um sistema automatizado resulta em problemas como:
+A empresa Mottu enfrenta desafios na gestão eficiente de suas motos, que são distribuídas por diversos pátios. O controle manual resulta em imprecisão, perdas, atrasos operacionais e dificuldade em monitorar a localização e o status exato de cada veículo, impactando a eficiência e aumentando custos.
 
-- Dificuldades em localizar motos específicas rapidamente.
-- Ineficiência na gestão de disponibilidade e manutenção das motos.
-- Alto índice de erros decorrentes do registro manual.
-- Atrasos operacionais e aumento de custos.
+## 📶 Justificativa para Uso de IoT
 
-Esses desafios impactam diretamente a eficiência operacional e a satisfação do cliente, destacando a necessidade de uma solução tecnológica efetiva.
+A tecnologia de Internet das Coisas (IoT) é a solução ideal para automatizar e otimizar este monitoramento. Através de sensores e comunicação em tempo real, o IoT permite a captura de dados precisos e constantes sobre a localização das motos, tornando o processo mais rápido, confiável e menos suscetível a erros humanos.
 
-## 📶 Justificativa para uso de IoT
+---
 
-A escolha pela tecnologia de IoT (Internet das Coisas) justifica-se pela capacidade de coletar, transmitir e gerenciar informações em tempo real. O uso de dispositivos IoT permite:
+## 🏛️ Arquitetura da Solução Completa
 
-- Monitoramento remoto e contínuo das motos.
-- Atualização imediata do status das motos e suas localizações.
-- Automação de tarefas manuais que hoje geram ineficiência.
-- Redução significativa de erros e retrabalho operacional.
+A solução foi projetada como um ecossistema integrado, conectando três projetos:
 
-A implementação de IoT proporcionará maior eficiência operacional, economia de recursos e uma gestão estratégica aprimorada.
+1.  **Dispositivo IoT (Este Projeto):** Um protótipo baseado em ESP32 com um módulo A9G (GPS/GPRS) é instalado na moto. Ele captura as coordenadas de GPS e as envia periodicamente via rede celular (HTTP POST).
+2.  **Backend (API .NET):** Uma API RESTful recebe os dados de localização do dispositivo IoT e os persiste em um banco de dados Oracle, atualizando o registro da moto correspondente.
+3.  **Frontend (App Mobile):** Um aplicativo em React Native consome a API .NET para exibir os dados. A tela de "Detalhes da Moto" funciona como um **dashboard de telemetria**, exibindo a última localização recebida em um mapa.
 
-## 🛠️ Tecnologias utilizadas
+---
 
-O projeto utilizará as seguintes tecnologias principais:
+## 🛠️ Tecnologias Utilizadas
 
-- **ESP32 WiFi LoRa:**  
-  Microcontrolador robusto, capaz de conectar-se a redes Wi-Fi e LoRa, possibilitando comunicação estável e eficiente entre dispositivos.
+- **Hardware:**
+  - `ESP32 WiFi LoRa`: Microcontrolador principal com display OLED integrado.
+  - `Módulo A9G`: Responsável pela captura de coordenadas GPS e comunicação via rede celular GPRS.
+  - `Push Button`: Para interações de configuração no dispositivo.
+- **Software Embarcado:**
+  - `Arduino Framework (C++)`: Linguagem de programação para o ESP32.
+  - `TinyGPS++`: Biblioteca para decodificação de dados de GPS.
+- **Backend & Persistência:**
+  - `API em ASP.NET Core`: Para receber e processar os dados de telemetria.
+  - `Banco de Dados Oracle`: Para o registro persistente do histórico de dados.
+- **Frontend & Dashboard:**
+  - `React Native com Expo`: Para a interface gráfica (dashboard) que exibe a localização em tempo real.
 
-- **Módulo A9G:**  
-  Dispositivo GSM/GPRS + GPS que será responsável por:
+---
 
-  - Coletar e fornecer informações precisas sobre localização das motos.
-  - Comunicar-se via rede celular para envio das coordenadas GPS para servidores remotos.
+## 🔌 Circuito e Montagem
 
-- **React Native e Expo:**  
-  Para o desenvolvimento de um aplicativo mobile com interface amigável, permitindo aos usuários visualizar e gerenciar as motos em tempo real.
+_Insira aqui a imagem da idealização do seu circuito. Você pode fazer o upload da imagem para o seu repositório GitHub e referenciá-la aqui._
+`![Diagrama do Circuito](caminho/para/sua/imagem_do_circuito.png)`
 
-- **AsyncStorage:**  
-  Armazenamento local no aplicativo mobile para dados como cadastro de motos, clientes e históricos.
+---
 
-- **Ionicons e LinearGradient:**  
-  Componentes gráficos para uma interface visual agradável, intuitiva e padronizada com a identidade visual da Mottu.
+## 📊 Fluxograma de Funcionamento
 
-## ✅ Resultados Parciais
+_Insira aqui a imagem do seu fluxograma._
+`![Fluxograma](caminho/para/sua/imagem_do_fluxograma.png)`
 
-Até o momento, o projeto obteve avanços expressivos:
+---
 
-- Comunicação eficaz entre o módulo A9G e ESP32, garantindo captura precisa dos dados de GPS.
-- Envio contínuo e estável das coordenadas GPS via GSM/GPRS utilizando requisições HTTP.
-- Protótipo funcional do aplicativo mobile, com telas intuitivas para gerenciamento e visualização das motos cadastradas.
-- Armazenamento local confiável utilizando AsyncStorage.
-- Fluxo robusto de navegação no aplicativo implementado com React Navigation, facilitando a usabilidade.
+## 🚀 Como Configurar e Usar
 
-Esses resultados validam a viabilidade técnica da solução e abrem caminho para as próximas etapas do desenvolvimento.
+**1. Backend (API .NET)**
 
-## Integrantes 
-- Gabriel Teodoro RM555962
-- Luka Shibuya RM558123
-- Eduardo Giovannini RM555030
+- Garanta que a API .NET esteja em execução e acessível na rede local.
 
+**2. Hardware (Dispositivo IoT)**
+
+1.  Abra o arquivo `Rastreador.ino` na Arduino IDE.
+2.  Atualize as variáveis `SERVER_IP` com o IP da máquina onde a API está rodando, `SERVER_PORT` com a porta correta (ex: 5012) e `APN` com a da sua operadora de celular.
+3.  Carregue (upload) o código para a placa ESP32.
+4.  Ligue o dispositivo. Ele tentará se conectar à rede GPRS e obter um sinal de GPS.
+
+**3. Frontend (App Mobile)**
+
+1.  Execute o aplicativo mobile em um emulador ou dispositivo físico.
+2.  Navegue até a lista de motos e clique em uma para ver a tela de detalhes. O mapa exibirá a última localização enviada pelo dispositivo IoT.
+
+---
+
+## ✅ Resultados
+
+O projeto resultou em um protótipo de ponta a ponta totalmente funcional:
+
+- O dispositivo IoT captura com sucesso as coordenadas de GPS.
+- A comunicação via GPRS (HTTP) envia os dados de forma confiável para a API .NET.
+- A API persiste os dados de localização no banco de dados Oracle.
+- O aplicativo mobile funciona como um dashboard, exibindo a telemetria em um mapa, cumprindo todos os requisitos principais do desafio.
+
+---
+
+## 📹 Vídeo de Apresentação
+
+[Cole aqui o link para o seu vídeo de demonstração no YouTube.]
