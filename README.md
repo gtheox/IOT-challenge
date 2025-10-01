@@ -113,4 +113,5 @@ O projeto resultou em um protótipo de ponta a ponta totalmente funcional:
 
 ## 📹 Vídeo de Apresentação
 
-[Cole aqui o link para o seu vídeo de demonstração no YouTube.]
+https://youtu.be/owKnEOmz8ac
+
